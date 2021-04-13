@@ -1,0 +1,42 @@
+﻿@model Aula.Models.Curso
+<div class="container">
+    <br />
+    @if (!String.IsNullOrEmpty(ViewBag.MensajeError))
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error</strong> @ViewBag.MensajeError
+        </div>
+    }
+    <H2 class="text-center">@ViewBag.Encabezado</H2>
+    <br /><br />
+    @using (Html.BeginForm("Manage", "Cursos", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="Titulo" title="Must " required>Titulo </label>
+                @Html.TextBoxFor(model => model.Titulo, new { placeholder = "Titulo", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Titulo, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="FechaInicio">Fecha de Inicio</label>
+                @Html.TextBoxFor(model => model.FechaInicio, new { placeholder = "aaaa-mm-dd", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="CupoMaximo" required>Cupo Máximo</label>
+                @Html.TextBoxFor(model => model.CupoMaximo, new { placeholder = "Cupo Máximo", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CupoMaximo, "", new { @class = "text-danger" })
+            </div>
+            
+            <div class="form-group col-md-6">
+                <br />
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="/Cursos/Index" class="btn btn-success" style="color:white">Volver</a>
+            </div>
+        </div>
+
+    }
+</div>
+

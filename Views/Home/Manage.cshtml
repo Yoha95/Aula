@@ -1,0 +1,56 @@
+﻿@model Aula.Models.Usuario
+<div class="container">
+    <br />
+    @if (!String.IsNullOrEmpty(ViewBag.MensajeError))
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error</strong> @ViewBag.MensajeError
+        </div>
+    }
+    <H2 class="text-center">@ViewBag.Encabezado</H2>
+    <br /><br />
+    @using (Html.BeginForm("Manage", "Home", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="NombreCompleto" title="Must " required>Nombre completo </label>
+                @Html.TextBoxFor(model => model.NombreCompleto, new { placeholder = "Nombre", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.NombreCompleto, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="FechaNacimiento">Fecha de Nacimiento</label>
+                @Html.TextBoxFor(model => model.FechaNacimiento, new { placeholder = "aaaa-mm-dd", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Domicilio" required id="direc">Domicilio</label>
+                @Html.TextBoxFor(model => model.Domicilio, new { placeholder = "Domicilio", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Domicilio, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Email" required id="direc">Email</label>
+                @Html.TextBoxFor(model => model.Email, new { placeholder = "Email", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="Rol">Rol</label>
+                @Html.DropDownListFor(m => m.Rol.Id, (List<SelectListItem>)ViewBag.Roles, "- Roles -", new { placeholder = "Seleccionar", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Rol.Id, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.Rol.Nombre, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                <br />
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="/Home/Index" class="btn btn-success" style="color:white">Volver</a>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+

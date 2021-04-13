@@ -1,0 +1,82 @@
+﻿@model List<Aula.Models.Usuario_Curso>
+
+
+
+
+<div class="container">
+    <br />
+    @if (!String.IsNullOrEmpty(ViewBag.Mensaje))
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Exito</strong> @ViewBag.Mensaje
+        </div>
+    }
+    <center><h2>@ViewBag.Encabezado</h2></center>
+    <br /><br />
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">N° Usuario</th>
+                <th scope="col">Nombre Completo</th>
+                <th scope="col">Asignado como</th>
+
+                <th scope="col"><a href="/Cursos/NuevaInscripcion?id=@ViewBag.IDcurso" class="btn btn-success">Inscribir</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Usuario.Id</td>
+                    <td>@item.Usuario.NombreCompleto</td>
+                    <td>@item.Usuario.Rol.Nombre</td>
+
+                    <td>
+                       
+                        <a onclick="confirmarEliminar(@item.Usuario.Id, '@item.Usuario.NombreCompleto')"
+                           class="btn btn-danger" data-toggle="modal" data-target="#modalEliminarInscripto" style="color:white">Eliminar</a>
+                    
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="modalEliminarInscripto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color:darkred">Validación para eliminar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Usted esta eliminando a: <span id="NombreEliminar"></span> 
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" id="idEliminar">Eliminar </a>
+                    <a class="btn btn-secondary" data-dismiss="modal" style="color:white">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function confirmarEliminar(id, nombre) {
+
+                document.getElementById("NombreEliminar").innerHTML = nombre;
+                document.getElementById("idEliminar").href = '/Cursos/BorrarInscripto?id=' + id;
+            }
+
+             
+            
+
+    </script>
+</div>
+
+
+
